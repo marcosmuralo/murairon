@@ -144,6 +144,8 @@ body{padding-bottom:104px}
 
 /* ===== MURAIRON V3 ===== */
 .v3-coach{margin:12px 0;padding:14px;border:1px solid rgba(249,115,22,.28);border-radius:16px;background:linear-gradient(135deg,rgba(249,115,22,.12),rgba(24,24,27,.72))}.v3-coach h3{margin:0 0 6px;font-size:14px;color:#fff}.v3-coach p{margin:0;color:#d4d4d8;font-size:12px;line-height:1.45}.v3-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}.v3-card{background:#18181b;border:1px solid #27272a;border-radius:14px;padding:12px}.v3-card b{display:block;font-size:18px;color:#fff}.v3-card small{color:#71717a}.v3-measure{display:grid;grid-template-columns:1fr 1fr;gap:8px}.v3-measure input,.v3-file{width:100%;background:#111;border:1px solid #3f3f46;color:#fff;border-radius:10px;padding:11px}.v3-photo{width:100%;max-height:280px;object-fit:cover;border-radius:14px;margin-top:10px;border:1px solid #27272a}.v3-badge{display:inline-block;padding:5px 8px;border-radius:999px;background:rgba(34,197,94,.12);color:#86efac;font-size:10px;font-weight:800;margin:3px 4px 3px 0}.v3-secondary{width:100%;margin-top:8px;border:1px solid #3f3f46;border-radius:11px;background:#18181b;color:#fff;padding:11px;font-weight:800}.v3-danger{border-color:#7f1d1d;color:#fca5a5}.v3-sessiontime{font-size:11px;color:#a1a1aa;margin-top:7px}
+
+.swap-modal{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.72);display:none;align-items:flex-end;justify-content:center;padding:18px}.swap-modal.open{display:flex}.swap-sheet{width:min(560px,100%);background:#111;border:1px solid #3f2a20;border-radius:24px;padding:20px;box-shadow:0 -16px 50px rgba(0,0,0,.55)}.swap-sheet-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.swap-sheet h3{margin:0;color:#fff;font-size:22px}.swap-sheet p{margin:5px 0 18px;color:#999}.swap-close{border:0;background:#222;color:#bbb;width:38px;height:38px;border-radius:50%;font-size:22px}.swap-choices{display:grid;gap:10px}.swap-choice{width:100%;display:grid;grid-template-columns:54px 1fr;grid-template-rows:auto auto;text-align:left;gap:1px 12px;align-items:center;border:1px solid #333;background:#181818;color:#fff;border-radius:16px;padding:13px 14px}.swap-choice span{grid-row:1/3;display:grid;place-items:center;width:48px;height:48px;border-radius:13px;background:#262626;color:#bbb;font-weight:900}.swap-choice strong{font-size:16px}.swap-choice small{color:#888}.swap-choice.active{border-color:#fb923c;background:rgba(234,88,12,.12)}.swap-choice.active span{background:#f97316;color:#111}.swap-trigger{border:1px solid #fb923c;background:linear-gradient(135deg,rgba(234,88,12,.24),rgba(124,45,18,.16));color:#fff;border-radius:15px;padding:12px 16px;font-weight:900;display:inline-flex;align-items:center;gap:8px}.swap-trigger:active{transform:scale(.98)}
 </style>
 </head>
 <body>
@@ -568,19 +570,29 @@ function swapWorkoutDay(){
   const base = WORKOUTS[blockOf(state.week).id] || {};
   const available = DAY_ORDER.filter(d => base[d]);
   const currentSource = workoutSourceDay(state.day);
-  const options = available.map(d => `${d} = ${DAY_LABEL[d]}${d===currentSource ? " (atual)" : ""}`).join("\\n");
-  const chosen = prompt(`Qual treino você quer fazer em ${DAY_LABEL[state.day]}?\\n\\n${options}\\n\\nDigite: ${available.join(", ")}`, currentSource);
-  if(!chosen) return;
-  const src = chosen.trim().toUpperCase().slice(0,3);
-  if(!available.includes(src)){ alert("Dia inválido."); return; }
-
+  const modal = document.getElementById("swapModal");
+  const choices = document.getElementById("swapChoices");
+  document.getElementById("swapModalTitle").textContent = `Trocar treino de ${DAY_LABEL[state.day]}`;
+  document.getElementById("swapModalSub").textContent = "Escolha qual treino você quer fazer hoje";
+  choices.innerHTML = available.map(d => {
+    const data = base[d];
+    const active = d === currentSource ? " active" : "";
+    return `<button class="swap-choice${active}" onclick="confirmWorkoutSwap('${d}')"><span>${d}</span><strong>${DAY_LABEL[d]}</strong><small>${data?.muscle || ''}${d===currentSource ? ' · atual' : ''}</small></button>`;
+  }).join("");
+  modal.classList.add("open");
+}
+function closeSwapModal(){ document.getElementById("swapModal")?.classList.remove("open"); }
+function confirmWorkoutSwap(src){
+  const base = WORKOUTS[blockOf(state.week).id] || {};
+  const available = DAY_ORDER.filter(d => base[d]);
+  if(!available.includes(src)) return;
   const swaps = getDaySwaps();
   const otherDay = available.find(d => d !== state.day && workoutSourceDay(d) === src);
   const oldSource = workoutSourceDay(state.day);
-
   swaps[state.day] = src;
-  if(otherDay) swaps[otherDay] = oldSource; // troca de verdade: ex. terça <-> quarta
+  if(otherDay) swaps[otherDay] = oldSource;
   localStorage.setItem(swapKey(), JSON.stringify(swaps));
+  closeSwapModal();
   loadEntries();
   renderAll();
 }
@@ -969,7 +981,7 @@ function renderContent() {
   titleWrap.innerHTML = `<h2>${DAY_LABEL[state.day]}</h2>
     <div class="muscle">${dayData.muscle}</div>
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px">
-      <button onclick="swapWorkoutDay()" style="border:1px solid #fb923c;background:rgba(234,88,12,.16);color:#fff;border-radius:12px;padding:10px 14px;font-weight:800">🔁 TROCAR TREINO DO DIA</button>
+      <button onclick="swapWorkoutDay()" class="swap-trigger">🔁 <span>TROCAR TREINO DO DIA</span></button>
       ${Object.keys(getDaySwaps()).length ? '<button onclick="resetWeekSwaps()" style="border:1px solid #444;background:#18181b;color:#ddd;border-radius:12px;padding:10px 12px">Restaurar semana</button>' : ''}
     </div>
     ${workoutSourceDay(state.day)!==state.day ? `<div style="text-align:center;margin-top:7px;color:#fb923c;font-size:12px;font-weight:800">Hoje usando o treino originalmente de ${DAY_LABEL[workoutSourceDay(state.day)]}</div>` : ''}`;
@@ -1267,5 +1279,12 @@ if ("serviceWorker" in navigator) {
 }
 </script>
 
+
+<div id="swapModal" class="swap-modal" onclick="if(event.target===this) closeSwapModal()">
+  <div class="swap-sheet" role="dialog" aria-modal="true" aria-labelledby="swapModalTitle">
+    <div class="swap-sheet-head"><div><h3 id="swapModalTitle">Trocar treino</h3><p id="swapModalSub">Escolha o treino para hoje</p></div><button class="swap-close" onclick="closeSwapModal()" aria-label="Fechar">×</button></div>
+    <div id="swapChoices" class="swap-choices"></div>
+  </div>
+</div>
 </body>
 </html>
