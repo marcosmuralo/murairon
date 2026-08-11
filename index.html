@@ -1249,12 +1249,21 @@ window.v2CompleteSet=function(k,rest,btn){if(state.entries[k])delete state.entri
 const mura31OldFilled=window.v2Filled;
 window.v2Filled=function(){const d=v2DayData();if(!d)return[0,0];let f=0,t=0;d.list.forEach((e,ei)=>{for(let si=0;si<e.sets;si++){t++;const x=state.entries[`${ei}-${si}`]||{};if((x.weight||x.reps)&&!x.mura31Suggested)f++;}});return[f,t];};
 const mura31OldRender=window.v2RenderWorkout;
-window.v2RenderWorkout=function(){mura31OldRender();const d=v2DayData(),e=d.list[v2ExIndex],p=mura31Plan(e);const box=document.querySelector('#v2WorkoutInner .v2-exhero > div[style*="border:1px solid"]');if(box){const badge=p.tone==='up'?'🟢':p.tone==='down'?'🔴':p.tone==='hold'?'🟡':'🔵';const detail=p.weights.map((w,i)=>w?`S${i+1}: ${w} kg × ${p.reps[i]}`:`S${i+1}: definir carga × ${p.reps[i]}`).join(' · ');box.innerHTML=`<b style="color:${p.tone==='up'?'#10b981':p.tone==='down'?'#f87171':p.tone==='hold'?'#facc15':'#60a5fa'}">${badge} MuraIron V3.1 Trainer · ${p.action}</b><div style="margin-top:6px;color:#e4e4e7">${p.text}</div><div style="margin-top:9px;font-weight:800;color:#fff;font-size:12px;line-height:1.6">${detail}</div><div style="margin-top:8px;color:#a1a1aa;font-size:10px">Pré-preenchido automaticamente. Ajuste apenas o que realmente executar; ao confirmar a série, o valor vira registro real.</div><button onclick="muraApplyPlan()" style="margin-top:10px;width:100%;padding:11px;border:0;border-radius:10px;background:#ea580c;color:#111;font-weight:900">RECALCULAR PRESCRIÇÃO</button>`;}}
+window.v2RenderWorkout=function(){mura31OldRender();const d=v2DayData(),e=d.list[v2ExIndex],p=mura31Plan(e);const box=document.querySelector('#v2WorkoutInner .v2-exhero > div[style*="border:1px solid"]');if(box){const badge=p.tone==='up'?'🟢':p.tone==='down'?'🔴':p.tone==='hold'?'🟡':'🔵';const detail=p.weights.map((w,i)=>w?`S${i+1}: ${w} kg × ${p.reps[i]}`:`S${i+1}: definir carga × ${p.reps[i]}`).join(' · ');box.innerHTML=`<b style="color:${p.tone==='up'?'#10b981':p.tone==='down'?'#f87171':p.tone==='hold'?'#facc15':'#60a5fa'}">${badge} MuraIron V3.2 Trainer · ${p.action}</b><div style="margin-top:6px;color:#e4e4e7">${p.text}</div><div style="margin-top:9px;font-weight:800;color:#fff;font-size:12px;line-height:1.6">${detail}</div><div style="margin-top:8px;color:#a1a1aa;font-size:10px">Pré-preenchido automaticamente. Ajuste apenas o que realmente executar; ao confirmar a série, o valor vira registro real.</div><button onclick="muraApplyPlan()" style="margin-top:10px;width:100%;padding:11px;border:0;border-radius:10px;background:#ea580c;color:#111;font-weight:900">RECALCULAR PRESCRIÇÃO</button>`;}}
 // Marca visualmente valores ainda sugeridos
 const mura31Render2=window.v2RenderWorkout;
 window.v2RenderWorkout=function(){mura31Render2();document.querySelectorAll('#v2WorkoutInner .v2-setgrid').forEach((row,si)=>{const x=state.entries[`${v2ExIndex}-${si}`]||{};if(x.mura31Suggested){row.style.opacity='.86';row.title='Sugestão automática do Trainer — ainda não confirmada';}});};
 // Atualiza identificação da versão na interface
-window.addEventListener('load',()=>{document.title='MuraIron V3.1 Trainer';setTimeout(()=>{const k=document.querySelector('#v2TodayCard .v2-kicker');if(k)k.textContent='MURAIRON V3.1 TRAINER · PRESCRIÇÃO AUTOMÁTICA';},300)});
+window.addEventListener('load',()=>{document.title='MuraIron V3.2 Trainer';setTimeout(()=>{const k=document.querySelector('#v2TodayCard .v2-kicker');if(k)k.textContent='MURAIRON V3.1 TRAINER · PRESCRIÇÃO AUTOMÁTICA';},300)});
+</script>
+
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js").catch(console.error);
+  });
+}
 </script>
 
 </body>
