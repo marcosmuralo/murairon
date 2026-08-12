@@ -562,9 +562,17 @@ function workoutSourceDay(day){
   const m = getDaySwaps();
   return m[day] || day;
 }
+function customWorkoutKey(day=state.day){ return `mura_custom_workout_w${state.week}_${day}`; }
+function getCustomWorkout(day=state.day){
+  try { const raw=localStorage.getItem(customWorkoutKey(day)); return raw ? JSON.parse(raw) : null; } catch(e){ return null; }
+}
+function saveCustomWorkout(data, day=state.day){ localStorage.setItem(customWorkoutKey(day), JSON.stringify(data)); }
 function getWorkoutForDay(day){
+  const custom=getCustomWorkout(day);
+  if(custom) return custom;
   const base = WORKOUTS[blockOf(state.week).id] || {};
-  return base[workoutSourceDay(day)];
+  const original=base[workoutSourceDay(day)];
+  return original ? { muscle: original.muscle, list: original.list.map(x=>({...x})) } : null;
 }
 function swapWorkoutDay(){
   const base = WORKOUTS[blockOf(state.week).id] || {};
@@ -600,6 +608,65 @@ function resetWeekSwaps(){
   localStorage.removeItem(swapKey());
   renderAll();
 }
+
+function muscleGroupForExercise(name){
+  const n=(name||"").toLowerCase();
+  if(/tríceps|triceps|paralela/.test(n)) return "Tríceps";
+  if(/rosca|bíceps|biceps/.test(n)) return "Bíceps";
+  if(/supino|crucifixo|voador|peitoral|crossover/.test(n)) return "Peito";
+  if(/puxada|pulley|remada|barra fixa|pull face/.test(n)) return "Costas";
+  if(/desenvolvimento|elevação lateral|elevacao lateral|elevação frontal|elevacao frontal|crucifixo inverso/.test(n)) return "Ombros";
+  if(/panturrilha/.test(n)) return "Panturrilha";
+  if(/flexora|stiff|posterior/.test(n)) return "Posteriores";
+  if(/abdutora|pélvica|pelvica|glúte|glute|sumô|sumo/.test(n)) return "Glúteos";
+  if(/extensora|leg press|hack|agachamento|adutora/.test(n)) return "Quadríceps";
+  return "Outros";
+}
+const EXERCISE_LIBRARY={
+  "Peito":["Supino Reto Máquina","Supino Inclinado Máquina","Supino Reto com Halteres","Supino Inclinado com Halteres","Crucifixo Inclinado","Crucifixo Máquina Reto","Crossover na Polia","Voador Peitoral"],
+  "Costas":["Pulley Frente Aberto","Puxada Frente Aberta","Puxada Triângulo","Puxada Supinada","Remada Serrote","Remada Baixa Triângulo","Remada Baixa Máquina","Remada Curvada Smith","Barra Fixa"],
+  "Bíceps":["Rosca Direta Barra Reta","Rosca Direta Barra W","Rosca Scott Máquina","Rosca Martelo Corda","Rosca Alternada com Halteres","Rosca Concentrada","Rosca na Polia"],
+  "Tríceps":["Tríceps Corda","Tríceps Paralela","Tríceps Francês Corda","Tríceps Testa na Polia Barra W","Tríceps Barra Reta","Tríceps Unilateral na Polia"],
+  "Ombros":["Desenvolvimento Máquina","Desenvolvimento Máquina Aberto","Desenvolvimento com Halteres","Elevação Lateral","Elevação Lateral na Polia","Elevação Lateral Máquina","Elevação Frontal Corda","Crucifixo Inverso Máquina","Pull Face"],
+  "Quadríceps":["Extensora","Leg Press 45","Agachamento Hack","Agachamento Smith","Agachamento Livre","Cadeira Adutora","Passada com Halteres"],
+  "Posteriores":["Mesa Flexora","Cadeira Flexora","Stiff","Flexora em Pé Máquina","Levantamento Terra Romeno","Good Morning"],
+  "Glúteos":["Elevação Pélvica","Cadeira Abdutora","Agachamento Sumô Máquina","Coice na Polia","Afundo Búlgaro","Passada"],
+  "Panturrilha":["Panturrilha em Pé Máquina","Panturrilha Sentado","Panturrilha no Leg Press","Panturrilha Unilateral"]
+};
+function ensureCustomDay(){
+  let d=getCustomWorkout();
+  if(!d){ const current=getWorkoutForDay(state.day); d={muscle:current.muscle,list:current.list.map(x=>({...x}))}; saveCustomWorkout(d); }
+  return d;
+}
+function chooseExerciseOption(exIdx){
+  const dayData=getWorkoutForDay(state.day); if(!dayData||!dayData.list[exIdx]) return;
+  const current=dayData.list[exIdx], group=muscleGroupForExercise(current.name);
+  const options=(EXERCISE_LIBRARY[group]||[]).filter(x=>x!==current.name);
+  openModal(`<h3>${group}</h3><div class="modal-sub">Trocar exercício</div><p style="color:#a1a1aa;font-size:13px">Atual: <b style="color:#fff">${current.name}</b></p><div style="display:grid;gap:8px;margin-top:12px">${options.map(n=>`<button onclick="replaceExercise(${exIdx}, decodeURIComponent('${encodeURIComponent(n)}'))" style="text-align:left;border:1px solid #3f3f46;background:#18181b;color:#fff;border-radius:12px;padding:13px;font-weight:750">${n}<span style="float:right;color:#fb923c">›</span></button>`).join('')}</div>`);
+}
+function replaceExercise(exIdx,name){
+  const d=ensureCustomDay(), old=d.list[exIdx];
+  d.list[exIdx]={...old,name}; saveCustomWorkout(d); closeModal(); loadEntries(); renderAll();
+}
+function addExerciseForGroup(){
+  const groups=Object.keys(EXERCISE_LIBRARY);
+  openModal(`<h3>Adicionar exercício</h3><div class="modal-sub">Escolha o grupo muscular</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">${groups.map(g=>`<button onclick="showAddExerciseOptions(decodeURIComponent('${encodeURIComponent(g)}'))" style="border:1px solid #3f3f46;background:#18181b;color:#fff;border-radius:12px;padding:14px 8px;font-weight:800">${g}</button>`).join('')}</div>`);
+}
+function showAddExerciseOptions(group){
+  const opts=EXERCISE_LIBRARY[group]||[];
+  openModal(`<h3>${group}</h3><div class="modal-sub">Adicionar mais um exercício deste grupo</div><div style="display:grid;gap:8px;margin-top:12px">${opts.map(n=>`<button onclick="addExercise(decodeURIComponent('${encodeURIComponent(n)}'), decodeURIComponent('${encodeURIComponent(group)}'))" style="text-align:left;border:1px solid #3f3f46;background:#18181b;color:#fff;border-radius:12px;padding:13px;font-weight:750">＋ ${n}</button>`).join('')}</div>`);
+}
+function addExercise(name,group){
+  const d=ensureCustomDay();
+  const sample=d.list.find(x=>muscleGroupForExercise(x.name)===group) || d.list[0] || ex(name,3,"8 a 12","60 seg","Convencional");
+  d.list.push(ex(name, sample.sets||3, sample.reps||"8 a 12", sample.rest||"60 seg", "Convencional"));
+  saveCustomWorkout(d); closeModal(); loadEntries(); renderAll();
+}
+function removeCustomExercise(exIdx){
+  const d=ensureCustomDay(); if(d.list.length<=1) return;
+  d.list.splice(exIdx,1); saveCustomWorkout(d); loadEntries(); renderAll();
+}
+function resetExerciseChanges(){ localStorage.removeItem(customWorkoutKey()); loadEntries(); renderAll(); }
 
 
 function slug(name) {
@@ -1005,6 +1072,7 @@ function renderContent() {
           <p class="mono">${exercise.sets}x ${exercise.reps} · descanso ${exercise.rest}</p>
         </div>
         <div class="headbtns">
+          <button class="iconbtn exercise-options" title="Outras opções deste grupo muscular">⇄</button>
           <button class="iconbtn" title="Ver imagem ou vídeo">🎬</button>
           <button class="iconbtn" title="Evolução de carga">📈</button>
         </div>
@@ -1012,6 +1080,7 @@ function renderContent() {
       <button class="tech-badge" style="background:${style.bg};color:${style.text}">${badgeLabel} <span class="qmark">ⓘ</span></button>
       <div class="history-line"><span>${last ? `Última carga: <b style="color:#fff">${last.weight} kg</b> (semana ${last.week})` : "Ainda sem histórico"}</span></div>
     `;
+    head.querySelector('.exercise-options').onclick = () => chooseExerciseOption(exIdx);
     head.querySelector('.iconbtn[title="Ver imagem ou vídeo"]').onclick = () => showImageModal(exercise.name);
     head.querySelector('.iconbtn[title="Evolução de carga"]').onclick = () => showEvoModal(exercise.name);
     head.querySelector('.tech-badge').onclick = () => showTechModal(category, exercise.tecnica);
@@ -1041,6 +1110,12 @@ function renderContent() {
     }
     main.appendChild(card);
   });
+
+  const customActive=!!getCustomWorkout();
+  const addBar=document.createElement("div");
+  addBar.style.cssText="display:grid;gap:8px;margin:16px 0 8px";
+  addBar.innerHTML=`<button onclick="addExerciseForGroup()" style="border:1px solid #fb923c;background:rgba(234,88,12,.14);color:#fff;border-radius:14px;padding:14px;font-weight:900;font-size:14px">＋ ADICIONAR EXERCÍCIO POR GRUPO MUSCULAR</button>${customActive?'<button onclick="resetExerciseChanges()" style="border:1px solid #3f3f46;background:#18181b;color:#a1a1aa;border-radius:12px;padding:10px;font-weight:700">↶ Restaurar exercícios originais deste dia</button>':''}`;
+  main.appendChild(addBar);
 
   main.querySelectorAll("input").forEach(input => {
     input.addEventListener("input", (e) => {
