@@ -1,7 +1,7 @@
 {
-  "name": "MuraIron V3.2 Trainer",
-  "short_name": "MuraIron",
-  "description": "Treino, controle de cargas, progressão e histórico MuraIron.",
+  "name": "MuraIron V3.4 · Projeto 95",
+  "short_name": "MuraIron 95",
+  "description": "Treinos, corridas, nutrição, composição corporal e progressão.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

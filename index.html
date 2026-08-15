@@ -190,13 +190,13 @@ body{padding-bottom:104px}
 
 
 <section class="v2-today" id="v2TodayCard">
-  <div class="v2-kicker">MURAIRON V3.2 · TRAINER</div><h2 id="v2TodayTitle">Seu treino</h2><p id="v2TodayMeta"></p>
+  <div class="v2-kicker">MURAIRON V3.4 · PROJETO 95</div><h2 id="v2TodayTitle">Seu treino</h2><p id="v2TodayMeta"></p>
   <div class="v21-badges"><span class="v21-badge">🔥 Sequência <strong id="v21Streak">0</strong></span><span class="v21-badge">🏆 PRs <strong id="v21Prs">0</strong></span><span class="v21-badge">📦 Backup local</span></div><div class="v2-stats"><div class="v2-stat"><b id="v2ExerciseCount">—</b><span>exercícios</span></div><div class="v2-stat"><b id="v2SetCount">—</b><span>séries</span></div><div class="v2-stat"><b id="v2Completion">0%</b><span>concluído</span></div></div>
   <div class="v2-suggest" id="v2Suggestion">💡 Registre suas séries para receber sugestões de progressão.</div>
   <button class="v2-primary" id="v2StartBtn">▶ INICIAR TREINO</button>
 </section>
 <div id="v21PrFlash" class="v21-prflash">🏆 Novo recorde!</div><div class="v2-workout-overlay" id="v2WorkoutMode"><div id="v2WorkoutInner"></div></div>
-<nav class="v2-bottom"><button class="v2-tab active" data-v2tab="today"><i>⌂</i>HOJE</button><button class="v2-tab" data-v2tab="training"><i>🏋</i>TREINO</button><button class="v2-tab" data-v2tab="progress"><i>↗</i>EVOLUÇÃO</button><button class="v2-tab" data-v2tab="profile"><i>●</i>PERFIL</button></nav>
+<nav class="v2-bottom" style="grid-template-columns:repeat(5,1fr)"><button class="v2-tab active" data-v2tab="today"><i>⌂</i>HOJE</button><button class="v2-tab" data-v2tab="training"><i>🏋</i>TREINO</button><button class="v2-tab" data-v2tab="progress"><i>↗</i>EVOLUÇÃO</button><button class="v2-tab" data-v2tab="project95"><i>🎯</i>PROJETO 95</button><button class="v2-tab" data-v2tab="profile"><i>●</i>PERFIL</button></nav>
 
 <div class="timerbar" id="timerBar">
   <div class="timerbar-top">
@@ -488,10 +488,43 @@ const J9_SEX = { muscle:"Pernas e Panturrilha | Mais 5", list:[
   ex("Panturrilha Sentado",4,"12 a 15","45 seg","Mais 5 Overload na última série")
 ]};
 
+/* Projeto 95: quatro sessões de força, preservando pernas para as corridas de quinta e domingo. */
+const P95_SUP_A={muscle:"Projeto 95 — Superior A · Peito e Costas",list:[
+ ex("Supino Reto Máquina",4,"6 a 8","120 seg","Convencional"),
+ ex("Remada Baixa Máquina",4,"6 a 8","120 seg","Convencional"),
+ ex("Supino Inclinado Máquina",3,"8 a 10","90 seg","Convencional"),
+ ex("Puxada Frente Aberta",3,"8 a 10","90 seg","Convencional"),
+ ex("Elevação Lateral",3,"12 a 15","60 seg","Convencional"),
+ ex("Rosca Direta Polia Barra + Tríceps Corda",3,"10 a 12","60 seg","Bi-set")
+]};
+const P95_INF_A={muscle:"Projeto 95 — Inferior A · Quadríceps e Core",list:[
+ ex("Agachamento Hack",4,"6 a 8","120 seg","Convencional"),
+ ex("Leg Press 45",3,"10 a 12","90 seg","Convencional"),
+ ex("Afundo Búlgaro",3,"8 a 10","90 seg","Convencional"),
+ ex("Extensora",3,"12 a 15","75 seg","Isometria"),
+ ex("Panturrilha em Pé Máquina",4,"10 a 15","60 seg","Convencional"),
+ ex("Prancha",3,"40 a 60","60 seg","Convencional")
+]};
+const P95_SUP_B={muscle:"Projeto 95 — Superior B · Costas, Ombros e Braços",list:[
+ ex("Barra Fixa",4,"6 a 10","120 seg","Convencional"),
+ ex("Desenvolvimento Máquina",4,"8 a 10","90 seg","Convencional"),
+ ex("Remada Baixa Triângulo",3,"10 a 12","90 seg","Convencional"),
+ ex("Crucifixo Inclinado",3,"10 a 12","75 seg","Convencional"),
+ ex("Pull Face",3,"12 a 15","60 seg","Convencional"),
+ ex("Rosca Martelo Corda + Tríceps Francês Corda",3,"10 a 12","60 seg","Bi-set")
+]};
+const P95_INF_B={muscle:"Projeto 95 — Inferior B · Posterior e Glúteos",list:[
+ ex("Stiff",4,"6 a 8","120 seg","Convencional"),
+ ex("Elevação Pélvica",4,"8 a 10","90 seg","Isometria"),
+ ex("Mesa Flexora",3,"10 a 12","90 seg","Convencional"),
+ ex("Passada Caminhando",3,"10 por lado","90 seg","Convencional"),
+ ex("Panturrilha em Pé Máquina",4,"12 a 15","60 seg","Convencional"),
+ ex("Abdominal na Polia",3,"12 a 15","60 seg","Convencional")
+]};
 const WORKOUTS = {
-  1: { SEG:A1, TER:B1, QUA:C1, QUI:A1, SEX:B1 },
-  2: { SEG:J5_SEG, TER:J5_TER, QUA:J5_QUA, QUI:J5_QUI, SEX:J5_SEX },
-  3: { SEG:J9_SEG, TER:J9_TER, QUA:J9_QUA, QUI:J9_QUI, SEX:J9_SEX },
+  1: { SEG:P95_SUP_A, TER:P95_INF_A, QUA:P95_SUP_B, SAB:P95_INF_B },
+  2: { SEG:P95_SUP_A, TER:P95_INF_A, QUA:P95_SUP_B, SAB:P95_INF_B },
+  3: { SEG:P95_SUP_A, TER:P95_INF_A, QUA:P95_SUP_B, SAB:P95_INF_B },
 };
 
 function blockOf(week) {
@@ -1250,7 +1283,7 @@ function v2FinishWorkout(){v2Persist();v21SaveSession({finishedAt:new Date().toI
 function v2ProgressModal(){let all=[];const names=new Set();Object.values(WORKOUTS).forEach(days=>Object.values(days).forEach(d=>d&&d.list.forEach(e=>names.add(e.name))));names.forEach(name=>{const h=getHistory(name),ws=Object.keys(h).map(Number);if(ws.length){const best=Math.max(...Object.values(h).map(Number));const lastW=Math.max(...ws);all.push({name,best,last:h[lastW],week:lastW,h});}});all.sort((a,b)=>b.best-a.best);let bars='';const weekly=[];for(let w=1;w<=12;w++){let sum=0,c=0;all.forEach(a=>{if(a.h[w]){sum+=Number(a.h[w]);c++;}});weekly.push(c?sum/c:0);}const mx=Math.max(1,...weekly);weekly.forEach((v,i)=>bars+=`<div class="v2-bar" style="height:${v?Math.max(8,v/mx*100):2}%"><span>${i+1}</span></div>`);let prs=all.slice(0,8).map(a=>`<div class="v2-pr"><div><b>${a.name}</b><br><small>último: ${a.last} kg · sem. ${a.week}</small></div><b>🏆 ${a.best} kg</b></div>`).join('')||'<p style="color:#71717a">Registre cargas para construir seu painel.</p>';openModal(`<h3 class="v2-modal-title">Evolução</h3><div class="modal-sub">Carga média registrada por semana</div><div class="v2-chart">${bars}</div><h4>Recordes de carga</h4>${prs}`);}
 function v2ProfileModal(){const completed=[];for(let w=1;w<=12;w++)DAY_ORDER.forEach(d=>{try{const x=JSON.parse(localStorage.getItem(`jh_progress_w${w}_${d}`)||'{}');if(Object.keys(x).length)completed.push(`${w}-${d}`)}catch(e){}});openModal(`<h3>Perfil MuraIron</h3><div class="modal-sub">Seu ciclo Mais Cinco</div><div class="v2-pr"><span>Semana atual</span><b>${state.week}/12</b></div><div class="v2-pr"><span>Sessões com registros</span><b>${completed.length}</b></div><div class="v2-pr"><span>Armazenamento</span><b>Local no aparelho</b></div><p style="color:#71717a;font-size:12px">A V2.1 mantém os registros no navegador deste aparelho. Faça backup antes de limpar dados do navegador ou trocar de aparelho.</p><button class="v2-primary" onclick="v21Export()">⬇ EXPORTAR BACKUP</button>`);}
 document.getElementById('v2StartBtn').onclick=()=>v2OpenWorkout(0);
-document.querySelectorAll('.v2-tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.v2-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');const t=b.dataset.v2tab;if(t==='today'){document.getElementById('v2TodayCard').scrollIntoView({behavior:'smooth'});}else if(t==='training'){document.querySelector('.weeknav').scrollIntoView({behavior:'smooth'});}else if(t==='progress')v2ProgressModal();else v2ProfileModal();});
+document.querySelectorAll('.v2-tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.v2-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');const t=b.dataset.v2tab;if(t==='today'){document.getElementById('v2TodayCard').scrollIntoView({behavior:'smooth'});}else if(t==='training'){document.querySelector('.weeknav').scrollIntoView({behavior:'smooth'});}else if(t==='progress')v2ProgressModal();else if(t==='project95')v34Project95Modal();else v2ProfileModal();});
 const _v2RenderAll=renderAll;renderAll=function(){_v2RenderAll();v2Refresh();};
 v2Refresh();
 </script>
@@ -1342,10 +1375,48 @@ window.v2RenderWorkout=function(){mura31OldRender();const d=v2DayData(),e=d.list
 const mura31Render2=window.v2RenderWorkout;
 window.v2RenderWorkout=function(){mura31Render2();document.querySelectorAll('#v2WorkoutInner .v2-setgrid').forEach((row,si)=>{const x=state.entries[`${v2ExIndex}-${si}`]||{};if(x.mura31Suggested){row.style.opacity='.86';row.title='Sugestão automática do Trainer — ainda não confirmada';}});};
 // Atualiza identificação da versão na interface
-window.addEventListener('load',()=>{document.title='MuraIron V3.2 Trainer';setTimeout(()=>{const k=document.querySelector('#v2TodayCard .v2-kicker');if(k)k.textContent='MURAIRON V3.1 TRAINER · PRESCRIÇÃO AUTOMÁTICA';},300)});
+window.addEventListener('load',()=>{document.title='MuraIron V3.4 · Projeto 95';setTimeout(()=>{const k=document.querySelector('#v2TodayCard .v2-kicker');if(k)k.textContent='MURAIRON V3.4 · PROJETO 95';},300)});
 </script>
 
 
+<style>
+.p95-hero{background:linear-gradient(135deg,#1c1917,#29201b);border:1px solid #7c2d12;border-radius:18px;padding:18px;margin:12px 0}.p95-hero label{font-size:9px;color:#fb923c;letter-spacing:.15em;font-weight:900}.p95-hero h2{font-size:28px;margin:7px 0 4px}.p95-hero p{color:#a1a1aa;font-size:12px;line-height:1.45}.p95-phase{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.p95-phase div{background:#18181b;border:1px solid #3f3f46;border-radius:12px;padding:13px}.p95-phase .active{border-color:#f97316}.p95-phase b,.p95-phase small{display:block}.p95-phase small{color:#71717a;margin-top:4px}.p95-macros{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0}.p95-macros div{background:#18181b;border-radius:10px;text-align:center;padding:10px 4px}.p95-macros b,.p95-macros small{display:block}.p95-macros small{font-size:8px;color:#71717a}.p95-week{display:grid;gap:6px}.p95-day{display:grid;grid-template-columns:40px 1fr;gap:8px;background:#18181b;border:1px solid #27272a;border-radius:10px;padding:10px}.p95-day b{color:#fb923c}.p95-day small{color:#a1a1aa}.p95-note{font-size:11px;color:#a1a1aa;line-height:1.5;margin-top:12px}.p95-goal{height:8px;background:#27272a;border-radius:99px;overflow:hidden;margin-top:5px}.p95-goal i{display:block;height:100%;background:linear-gradient(90deg,#ea580c,#fb923c)}
+</style>
+<script>
+/* ===== MURAIRON V3.4 · PROJETO 95 ===== */
+function v34Body(){try{return JSON.parse(localStorage.getItem('mura_v3_body')||'{}')}catch(e){return{}}}
+function v34History(){try{return JSON.parse(localStorage.getItem('mura_v34_body_history')||'[]')}catch(e){return[]}}
+function v34Project95Modal(){
+ const b=v34Body(),w=Number(String(b.weight||'98.8').replace(',','.'))||98.8;
+ const pct=Math.max(0,Math.min(100,(98.8-w)/(98.8-94)*100));
+ const week=[['SEG','Superior A · peito e costas'],['TER','Inferior A · quadríceps e core'],['QUA','Superior B · costas, ombros e braços'],['QUI','Corrida leve · 30–40 min · Zona 2'],['SEX','Recuperação e mobilidade'],['SÁB','Inferior B · posterior e glúteos'],['DOM','Corrida longa · 45–60 min · Zona 2']];
+ openModal(`<div class="p95-hero"><label>MURAIRON · PROJETO 95</label><h2>Definição sem perder força.</h2><p>Fase 1: reduzir gordura preservando seus 71,8 kg de massa muscular. A meta de definição será decidida também pela cintura e pelas fotos, não apenas pelo peso.</p><div style="display:flex;justify-content:space-between"><b>${w.toFixed(1)} kg</b><b>Meta 93–95 kg</b></div><div class="p95-goal"><i style="width:${pct}%"></i></div></div>
+ <div class="p95-phase"><div class="active"><b>FASE 1 · ATUAL</b><small>93–95 kg · preservar força</small></div><div><b>FASE 2</b><small>90–92 kg · 13–15% gordura*</small></div></div>
+ <h4>Estratégia nutricional inicial</h4><div class="p95-macros"><div><b>2.450</b><small>KCAL</small></div><div><b>190 g</b><small>PROTEÍNA</small></div><div><b>260 g</b><small>CARBO</small></div><div><b>70 g</b><small>GORDURA</small></div></div>
+ <h4>Semana planejada</h4><div class="p95-week">${week.map(x=>`<div class="p95-day"><b>${x[0]}</b><small>${x[1]}</small></div>`).join('')}</div>
+ <button class="v2-primary" style="margin-top:14px" onclick="closeModal();setTimeout(v34BodyModal,100)">📏 REGISTRAR PESO, CINTURA E FOTO</button>
+ <button class="v3-secondary" onclick="v34Checkin()">✓ CHECK-IN SEMANAL</button>
+ <p class="p95-note">*Faixa estimada. Revise a cada 14 dias. Se a média cair mais de 0,8 kg/semana, acrescente 150 kcal; sem queda por duas semanas, retire 150 kcal. Não reduza a proteína.</p>`);
+}
+function v34Checkin(){
+ const b=v34Body();if(!b.weight){alert('Registre primeiro seu peso e suas medidas.');closeModal();setTimeout(v34BodyModal,100);return}
+ const a=v34History(),today=new Date().toISOString().slice(0,10),entry={date:today,weight:b.weight,waist:b.waist||'',chest:b.chest||'',arm:b.arm||''};
+ const idx=a.findIndex(x=>x.date===today);if(idx>=0)a[idx]=entry;else a.push(entry);localStorage.setItem('mura_v34_body_history',JSON.stringify(a.slice(-52)));
+ alert('Check-in semanal salvo. Acompanhe a média do peso e a cintura.');closeModal();
+}
+function v34BodyModal(){
+ const b=v34Body();
+ openModal(`<h3>Corpo & Evolução</h3><div class="modal-sub">Registre uma vez por semana, pela manhã e em condições semelhantes.</div><div class="v3-measure"><input id="p95weight" inputmode="decimal" placeholder="Peso (kg)" value="${b.weight||'98.8'}"><input id="p95waist" inputmode="decimal" placeholder="Cintura (cm)" value="${b.waist||''}"><input id="p95chest" inputmode="decimal" placeholder="Peito (cm)" value="${b.chest||''}"><input id="p95arm" inputmode="decimal" placeholder="Braço (cm)" value="${b.arm||''}"></div><button class="v2-primary" style="margin-top:10px" onclick="v34SaveBody()">SALVAR MEDIDAS</button><label class="v3-secondary" style="display:block;text-align:center;cursor:pointer">📷 ADICIONAR FOTO<input type="file" accept="image/*" style="display:none" onchange="v34Photo(this)"></label>${b.photo?`<img class="v3-photo" src="${b.photo}">`:''}`);
+}
+function v34SaveBody(){
+ const old=v34Body(),b={...old,weight:document.getElementById('p95weight').value,waist:document.getElementById('p95waist').value,chest:document.getElementById('p95chest').value,arm:document.getElementById('p95arm').value,updatedAt:new Date().toISOString()};
+ localStorage.setItem('mura_v3_body',JSON.stringify(b));closeModal();setTimeout(v34Project95Modal,100);
+}
+function v34Photo(inp){
+ const f=inp.files&&inp.files[0];if(!f)return;if(f.size>1800000){alert('Escolha uma foto de até 1,8 MB.');return}
+ const r=new FileReader();r.onload=()=>{const b=v34Body();b.photo=r.result;localStorage.setItem('mura_v3_body',JSON.stringify(b));closeModal();setTimeout(v34BodyModal,100)};r.readAsDataURL(f);
+}
+</script>
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
