@@ -190,7 +190,7 @@ body{padding-bottom:104px}
 
 
 <section class="v2-today" id="v2TodayCard">
-  <div class="v2-kicker">MURAIRON V3.5 · PROJETO 95</div><h2 id="v2TodayTitle">Seu treino</h2><p id="v2TodayMeta"></p>
+  <div class="v2-kicker">MURAIRON V3.6 · NUTRIÇÃO IA</div><h2 id="v2TodayTitle">Seu treino</h2><p id="v2TodayMeta"></p>
   <div class="v21-badges"><span class="v21-badge">🔥 Sequência <strong id="v21Streak">0</strong></span><span class="v21-badge">🏆 PRs <strong id="v21Prs">0</strong></span><span class="v21-badge">📦 Backup local</span></div><div class="v2-stats"><div class="v2-stat"><b id="v2ExerciseCount">—</b><span>exercícios</span></div><div class="v2-stat"><b id="v2SetCount">—</b><span>séries</span></div><div class="v2-stat"><b id="v2Completion">0%</b><span>concluído</span></div></div>
   <div class="v2-suggest" id="v2Suggestion">💡 Registre suas séries para receber sugestões de progressão.</div>
   <button class="v2-primary" id="v2StartBtn">▶ INICIAR TREINO</button>
@@ -1373,7 +1373,7 @@ window.v2RenderWorkout=function(){mura31OldRender();const d=v2DayData(),e=d.list
 const mura31Render2=window.v2RenderWorkout;
 window.v2RenderWorkout=function(){mura31Render2();document.querySelectorAll('#v2WorkoutInner .v2-setgrid').forEach((row,si)=>{const x=state.entries[`${v2ExIndex}-${si}`]||{};if(x.mura31Suggested){row.style.opacity='.86';row.title='Sugestão automática do Trainer — ainda não confirmada';}});};
 // Atualiza identificação da versão na interface
-window.addEventListener('load',()=>{document.title='MuraIron V3.5 · Projeto 95';setTimeout(()=>{const k=document.querySelector('#v2TodayCard .v2-kicker');if(k)k.textContent='MURAIRON V3.5 · PROJETO 95';},300)});
+window.addEventListener('load',()=>{document.title='MuraIron V3.6 · Nutrição IA';setTimeout(()=>{const k=document.querySelector('#v2TodayCard .v2-kicker');if(k)k.textContent='MURAIRON V3.6 · NUTRIÇÃO IA';},300)});
 </script>
 
 
@@ -1383,8 +1383,11 @@ window.addEventListener('load',()=>{document.title='MuraIron V3.5 · Projeto 95'
 <style>
 .p95-diets{display:grid;grid-template-columns:1fr 1fr;gap:8px}.p95-diet{background:#18181b;border:1px solid #3f3f46;border-radius:12px;padding:12px}.p95-diet.week{border-color:#f97316}.p95-diet b,.p95-diet small{display:block}.p95-diet small{color:#a1a1aa;margin-top:5px;line-height:1.4}
 </style>
+<style>
+.n36-tabs{display:flex;gap:5px;overflow:auto;margin:12px 0}.n36-tabs button{min-width:43px;border:1px solid #3f3f46;background:#18181b;color:#a1a1aa;border-radius:9px;padding:9px 5px;font-weight:800}.n36-tabs .on{border-color:#f97316!important;color:#fb923c!important}.n36-meals{display:grid;gap:7px}.n36-meals>div{display:grid;grid-template-columns:48px 1fr;gap:8px;background:#18181b;border:1px solid #27272a;border-radius:11px;padding:11px}.n36-meals>div>b{color:#fb923c}.n36-meals span,.n36-meals small{display:block}.n36-meals small{color:#a1a1aa;margin-top:4px;line-height:1.35}.n36-camera{display:block;margin-top:14px;background:#f97316;color:#111;border-radius:12px;padding:15px;text-align:center;font-weight:900;cursor:pointer}.n36-camera input{display:none}.n36-photo{display:block;width:100%;max-height:340px;object-fit:cover;border-radius:14px;margin-top:12px}.n36-result{display:grid;gap:7px;margin:12px 0}.n36-result>div{display:grid;grid-template-columns:1fr 85px;gap:8px;align-items:center;background:#18181b;border-radius:10px;padding:11px}.n36-result span,.n36-result small{display:block}.n36-result small{color:#a1a1aa;margin-top:3px}.n36-result label{position:relative}.n36-result input{width:100%;background:#0c0b0a;color:#fff;border:1px solid #3f3f46;border-radius:8px;padding:10px 27px 10px 6px}.n36-result label small{position:absolute;right:5px;top:8px;font-size:9px}.n36-total{background:#1c1917;border:1px solid #f97316;border-radius:12px;padding:14px;display:grid;gap:4px}.n36-total b{font-size:24px;color:#fb923c}.n36-total span{color:#e4e4e7}
+</style>
 <script>
-/* ===== MURAIRON V3.5 · PROJETO 95 ===== */
+/* ===== MURAIRON V3.6 · PROJETO 95 + NUTRIÇÃO IA ===== */
 function v34Body(){try{return JSON.parse(localStorage.getItem('mura_v3_body')||'{}')}catch(e){return{}}}
 function v34History(){try{return JSON.parse(localStorage.getItem('mura_v34_body_history')||'[]')}catch(e){return[]}}
 function v34Project95Modal(){
@@ -1393,7 +1396,7 @@ function v34Project95Modal(){
  const week=[['SEG','Superior completo A'],['TER','Inferior completo · único treino de pernas'],['QUA','Superior completo B'],['QUI','Corrida leve · 30–40 min · Zona 2'],['SEX','Recuperação e mobilidade'],['SÁB','Repetição do Superior A'],['DOM','Corrida longa · 40–60 min · Zona 2']];
  openModal(`<div class="p95-hero"><label>MURAIRON · PROJETO 95</label><h2>Definição sem perder força.</h2><p>Fase 1: reduzir gordura preservando seus 71,8 kg de massa muscular. A meta de definição será decidida também pela cintura e pelas fotos, não apenas pelo peso.</p><div style="display:flex;justify-content:space-between"><b>${w.toFixed(1)} kg</b><b>Meta 93–95 kg</b></div><div class="p95-goal"><i style="width:${pct}%"></i></div></div>
  <div class="p95-phase"><div class="active"><b>FASE 1 · ATUAL</b><small>93–95 kg · preservar força</small></div><div><b>FASE 2</b><small>90–92 kg · 13–15% gordura*</small></div></div>
- <h4>Estratégia nutricional</h4><div class="p95-diets"><div class="p95-diet week"><b>SEG–SEX · CONTROLADA</b><small>2.300 kcal/dia<br>190 g proteína<br>Refeições planejadas</small></div><div class="p95-diet"><b>SÁB–DOM · FLEXÍVEL</b><small>Até 2.800 kcal/dia<br>190 g proteína<br>1 refeição livre/dia</small></div></div><div class="p95-macros"><div><b>190 g</b><small>PROTEÍNA TODOS OS DIAS</small></div><div><b>3,5 L</b><small>ÁGUA</small></div><div><b>25–35 g</b><small>FIBRAS</small></div><div><b>2.440</b><small>MÉDIA KCAL/SEM</small></div></div>
+ <h4>Estratégia nutricional</h4><div class="p95-diets"><div class="p95-diet week"><b>SEG–SEX · CONTROLADA</b><small>2.300 kcal/dia<br>190 g proteína<br>Refeições planejadas</small></div><div class="p95-diet"><b>SÁB–DOM · FLEXÍVEL</b><small>Até 2.800 kcal/dia<br>190 g proteína<br>1 refeição livre/dia</small></div></div><div class="p95-macros"><div><b>190 g</b><small>PROTEÍNA TODOS OS DIAS</small></div><div><b>3,5 L</b><small>ÁGUA</small></div><div><b>25–35 g</b><small>FIBRAS</small></div><div><b>2.440</b><small>MÉDIA KCAL/SEM</small></div></div><button class="v2-primary" onclick="closeModal();setTimeout(v36NutritionModal,100)">🍽 VER CARDÁPIO E ANALISAR PRATO</button>
  <h4>Semana planejada</h4><div class="p95-week">${week.map(x=>`<div class="p95-day"><b>${x[0]}</b><small>${x[1]}</small></div>`).join('')}</div>
  <button class="v2-primary" style="margin-top:14px" onclick="closeModal();setTimeout(v34BodyModal,100)">📏 REGISTRAR PESO, CINTURA E FOTO</button>
  <button class="v3-secondary" onclick="v34Checkin()">✓ CHECK-IN SEMANAL</button>
@@ -1417,6 +1420,39 @@ function v34Photo(inp){
  const f=inp.files&&inp.files[0];if(!f)return;if(f.size>1800000){alert('Escolha uma foto de até 1,8 MB.');return}
  const r=new FileReader();r.onload=()=>{const b=v34Body();b.photo=r.result;localStorage.setItem('mura_v3_body',JSON.stringify(b));closeModal();setTimeout(v34BodyModal,100)};r.readAsDataURL(f);
 }
+const V36_MENU={
+ SEG:{label:"Segunda",goal:"2.300 kcal · 190 g proteína",meals:[["07:00","Café","3 ovos, 2 fatias de pão integral, mamão e café"],["10:30","Lanche","Iogurte proteico, 30 g de aveia e banana"],["13:00","Almoço","200 g frango, 150 g arroz, feijão, salada e legumes"],["17:00","Pré-treino","Whey, banana e 15 g pasta de amendoim"],["20:30","Jantar","200 g patinho, batata assada e legumes"]]},
+ TER:{label:"Terça",goal:"2.300 kcal · 190 g proteína",meals:[["07:00","Café","Omelete com 3 ovos e queijo, pão integral e fruta"],["10:30","Lanche","Whey, maçã e castanhas"],["13:00","Almoço","200 g patinho, arroz, feijão e salada"],["17:00","Pré-treino","Iogurte, banana e aveia"],["20:30","Jantar","200 g tilápia, purê de batata e legumes"]]},
+ QUA:{label:"Quarta",goal:"2.300 kcal · 190 g proteína",meals:[["07:00","Café","Overnight oats com whey, aveia, leite e morangos"],["10:30","Lanche","2 ovos cozidos, fruta e iogurte"],["13:00","Almoço","200 g frango, macarrão simples e salada"],["17:00","Pré-treino","Sanduíche integral de frango"],["20:30","Jantar","200 g carne magra, arroz e legumes"]]},
+ QUI:{label:"Quinta",goal:"2.300 kcal · 190 g proteína",meals:[["07:00","Café","3 ovos, tapioca com queijo e fruta"],["10:30","Lanche","Iogurte proteico e banana"],["13:00","Almoço","200 g peixe, arroz, feijão e salada"],["17:00","Lanche","Whey, aveia e fruta"],["20:30","Jantar","200 g frango, batata-doce e legumes"]]},
+ SEX:{label:"Sexta",goal:"2.300 kcal · 190 g proteína",meals:[["07:00","Café","Omelete, pão integral e mamão"],["10:30","Lanche","Whey e fruta"],["13:00","Almoço","200 g carne magra, arroz, feijão e salada"],["17:00","Lanche","Iogurte, aveia e castanhas"],["20:30","Jantar","Hambúrguer caseiro magro, pão e salada"]]},
+ SAB:{label:"Sábado",goal:"Até 2.800 kcal · 190 g proteína",meals:[["08:00","Café","Ovos, pão, fruta e café"],["12:30","Almoço","Proteína magra, arroz/feijão e salada"],["16:30","Lanche","Whey ou iogurte proteico"],["20:30","Refeição livre","Escolha uma: pizza, hambúrguer, massa ou churrasco; sem repetir e moderar bebida"]]},
+ DOM:{label:"Domingo",goal:"Até 2.800 kcal · 190 g proteína",meals:[["08:00","Pré-corrida","Pão, banana, mel e café"],["10:00","Pós-corrida","Ovos, iogurte e fruta"],["13:30","Refeição livre","Almoço familiar ou restaurante, priorizando proteína"],["20:00","Jantar leve","Frango, omelete ou peixe com salada e legumes"]]}
+};
+function v36DayKey(){return ['DOM','SEG','TER','QUA','QUI','SEX','SAB'][new Date().getDay()]}
+function v36NutritionModal(day=v36DayKey()){
+ const d=V36_MENU[day],log=v36FoodLog(),today=new Date().toISOString().slice(0,10),used=log.filter(x=>x.date===today).reduce((s,x)=>s+(Number(x.totals?.calories)||0),0);
+ openModal(`<h3>Nutrição · ${d.label}</h3><div class="modal-sub">${d.goal} · registrado hoje: ${Math.round(used)} kcal</div><div class="n36-tabs">${Object.keys(V36_MENU).map(k=>`<button class="${k===day?'on':''}" onclick="v36NutritionModal('${k}')">${k}</button>`).join('')}</div><div class="n36-meals">${d.meals.map(m=>`<div><b>${m[0]}</b><span><strong>${m[1]}</strong><small>${m[2]}</small></span></div>`).join('')}</div><button class="v2-primary" onclick="v36CameraModal()">📷 FOTOGRAFAR E ANALISAR PRATO</button><p class="p95-note">A análise visual é uma estimativa. Óleo, molhos, recheios e o peso real podem alterar bastante o resultado. Confirme antes de registrar.</p>`);
+}
+let v36Image="";
+function v36CameraModal(){
+ openModal(`<h3>Analisar prato com IA</h3><div class="modal-sub">Fotografe o prato inteiro, de cima, com boa luz.</div><label class="n36-camera">📷 ABRIR CÂMERA<input type="file" accept="image/*" capture="environment" onchange="v36PrepareImage(this)"></label><div id="n36preview"></div><button id="n36analyze" class="v2-primary" disabled onclick="v36Analyze()">ANALISAR CALORIAS E MACROS</button><p class="p95-note">A foto será enviada somente quando você tocar em analisar. A estimativa deve ser revisada antes de entrar no diário.</p>`);
+}
+function v36PrepareImage(inp){
+ const f=inp.files&&inp.files[0];if(!f)return;const img=new Image(),r=new FileReader();
+ r.onload=()=>{img.onload=()=>{const max=1200,scale=Math.min(1,max/Math.max(img.width,img.height)),c=document.createElement('canvas');c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);c.getContext('2d').drawImage(img,0,0,c.width,c.height);v36Image=c.toDataURL('image/jpeg',.78);document.getElementById('n36preview').innerHTML=`<img class="n36-photo" src="${v36Image}">`;document.getElementById('n36analyze').disabled=false};img.src=r.result};r.readAsDataURL(f);
+}
+async function v36Analyze(){
+ const btn=document.getElementById('n36analyze');btn.disabled=true;btn.textContent='IA ANALISANDO O PRATO...';
+ try{const r=await fetch('/api/analyze-meal',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:v36Image})}),data=await r.json();if(!r.ok)throw new Error(data.error||'Falha na análise');v36RenderResult(data)}
+ catch(e){alert(e.message);btn.disabled=false;btn.textContent='TENTAR NOVAMENTE'}
+}
+function v36RenderResult(d){
+ window.v36Current=d;openModal(`<h3>${d.meal_name||'Prato analisado'}</h3><div class="modal-sub">Confiança: ${d.confidence}. Corrija as porções se necessário.</div><div class="n36-result">${d.items.map((x,i)=>`<div><span><b>${x.name}</b><small>${x.portion} · confiança ${x.confidence}</small></span><label><input inputmode="numeric" value="${Math.round(x.calories)}" onchange="v36EditCalories(${i},this.value)"><small>kcal</small></label></div>`).join('')}</div><div class="n36-total"><b id="n36kcal">${Math.round(d.totals.calories)} kcal</b><span id="n36macros">P ${Math.round(d.totals.protein)} g · C ${Math.round(d.totals.carbs)} g · G ${Math.round(d.totals.fat)} g</span></div>${d.warnings?.length?`<p class="p95-note">⚠ ${d.warnings.join(' ')}</p>`:''}<button class="v2-primary" onclick="v36SaveMeal()">CONFIRMAR E REGISTRAR</button><button class="v3-secondary" onclick="v36CameraModal()">TIRAR OUTRA FOTO</button>`);
+}
+function v36EditCalories(i,v){const d=window.v36Current,old=Number(d.items[i].calories)||0,n=Number(v)||0,ratio=old?n/old:1;d.items[i].calories=n;d.items[i].protein*=ratio;d.items[i].carbs*=ratio;d.items[i].fat*=ratio;d.totals={calories:d.items.reduce((s,x)=>s+Number(x.calories||0),0),protein:d.items.reduce((s,x)=>s+Number(x.protein||0),0),carbs:d.items.reduce((s,x)=>s+Number(x.carbs||0),0),fat:d.items.reduce((s,x)=>s+Number(x.fat||0),0)};document.getElementById('n36kcal').textContent=Math.round(d.totals.calories)+' kcal';document.getElementById('n36macros').textContent=`P ${Math.round(d.totals.protein)} g · C ${Math.round(d.totals.carbs)} g · G ${Math.round(d.totals.fat)} g`}
+function v36FoodLog(){try{return JSON.parse(localStorage.getItem('mura_v36_food_log')||'[]')}catch(e){return[]}}
+function v36SaveMeal(){const a=v36FoodLog();a.push({...window.v36Current,date:new Date().toISOString().slice(0,10),savedAt:new Date().toISOString()});localStorage.setItem('mura_v36_food_log',JSON.stringify(a.slice(-200)));v36Image='';alert('Refeição registrada no diário.');closeModal();setTimeout(v36NutritionModal,100)}
 </script>
 <script>
 if ("serviceWorker" in navigator) {

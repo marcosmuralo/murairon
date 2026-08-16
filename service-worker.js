@@ -1,4 +1,4 @@
-const CACHE = "murairon-v3-5-project-95";
+const CACHE = "murairon-v3-6-nutrition-ai";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));

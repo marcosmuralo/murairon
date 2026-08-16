@@ -1,7 +1,7 @@
 {
-  "name": "MuraIron V3.5 · Projeto 95",
+  "name": "MuraIron V3.6 · Nutrição IA",
   "short_name": "MuraIron 95",
-  "description": "Treinos, corridas, nutrição, composição corporal e progressão.",
+  "description": "Treinos, cardápio diário, análise de pratos por IA e evolução corporal.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
