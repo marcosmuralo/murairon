@@ -190,7 +190,7 @@ body{padding-bottom:104px}
 
 
 <section class="v2-today" id="v2TodayCard">
-  <div class="v2-kicker">MURAIRON V3.4 · PROJETO 95</div><h2 id="v2TodayTitle">Seu treino</h2><p id="v2TodayMeta"></p>
+  <div class="v2-kicker">MURAIRON V3.5 · PROJETO 95</div><h2 id="v2TodayTitle">Seu treino</h2><p id="v2TodayMeta"></p>
   <div class="v21-badges"><span class="v21-badge">🔥 Sequência <strong id="v21Streak">0</strong></span><span class="v21-badge">🏆 PRs <strong id="v21Prs">0</strong></span><span class="v21-badge">📦 Backup local</span></div><div class="v2-stats"><div class="v2-stat"><b id="v2ExerciseCount">—</b><span>exercícios</span></div><div class="v2-stat"><b id="v2SetCount">—</b><span>séries</span></div><div class="v2-stat"><b id="v2Completion">0%</b><span>concluído</span></div></div>
   <div class="v2-suggest" id="v2Suggestion">💡 Registre suas séries para receber sugestões de progressão.</div>
   <button class="v2-primary" id="v2StartBtn">▶ INICIAR TREINO</button>
@@ -489,42 +489,40 @@ const J9_SEX = { muscle:"Pernas e Panturrilha | Mais 5", list:[
 ]};
 
 /* Projeto 95: quatro sessões de força, preservando pernas para as corridas de quinta e domingo. */
-const P95_SUP_A={muscle:"Projeto 95 — Superior A · Peito e Costas",list:[
- ex("Supino Reto Máquina",4,"6 a 8","120 seg","Convencional"),
- ex("Remada Baixa Máquina",4,"6 a 8","120 seg","Convencional"),
- ex("Supino Inclinado Máquina",3,"8 a 10","90 seg","Convencional"),
- ex("Puxada Frente Aberta",3,"8 a 10","90 seg","Convencional"),
+const P95_SUP_A={muscle:"Projeto 95 — Superior Completo A",list:[
+ ex("Supino Reto Máquina",3,"6 a 10","90 seg","Convencional"),
+ ex("Puxada Frente Aberta",3,"8 a 12","90 seg","Convencional"),
+ ex("Remada Baixa Triângulo",3,"8 a 12","90 seg","Convencional"),
+ ex("Desenvolvimento Máquina",3,"8 a 12","75 seg","Convencional"),
  ex("Elevação Lateral",3,"12 a 15","60 seg","Convencional"),
- ex("Rosca Direta Polia Barra + Tríceps Corda",3,"10 a 12","60 seg","Bi-set")
+ ex("Rosca Direta Polia Barra",3,"10 a 12","60 seg","Convencional"),
+ ex("Tríceps Corda",3,"10 a 12","60 seg","Convencional"),
+ ex("Abdominal na Polia",3,"12 a 15","60 seg","Convencional")
 ]};
-const P95_INF_A={muscle:"Projeto 95 — Inferior A · Quadríceps e Core",list:[
- ex("Agachamento Hack",4,"6 a 8","120 seg","Convencional"),
+const P95_INF_A={muscle:"Projeto 95 — Inferior Completo",list:[
+ ex("Agachamento Hack",4,"6 a 10","120 seg","Convencional"),
  ex("Leg Press 45",3,"10 a 12","90 seg","Convencional"),
- ex("Afundo Búlgaro",3,"8 a 10","90 seg","Convencional"),
+ ex("Stiff",4,"8 a 10","120 seg","Convencional"),
  ex("Extensora",3,"12 a 15","75 seg","Isometria"),
+ ex("Cadeira Flexora",3,"10 a 12","75 seg","Convencional"),
+ ex("Elevação Pélvica",3,"8 a 12","90 seg","Isometria"),
  ex("Panturrilha em Pé Máquina",4,"10 a 15","60 seg","Convencional"),
  ex("Prancha",3,"40 a 60","60 seg","Convencional")
 ]};
-const P95_SUP_B={muscle:"Projeto 95 — Superior B · Costas, Ombros e Braços",list:[
+const P95_SUP_B={muscle:"Projeto 95 — Superior Completo B",list:[
+ ex("Supino Inclinado Máquina",3,"8 a 12","90 seg","Convencional"),
  ex("Barra Fixa",4,"6 a 10","120 seg","Convencional"),
- ex("Desenvolvimento Máquina",4,"8 a 10","90 seg","Convencional"),
- ex("Remada Baixa Triângulo",3,"10 a 12","90 seg","Convencional"),
- ex("Crucifixo Inclinado",3,"10 a 12","75 seg","Convencional"),
+ ex("Remada Unilateral Máquina",3,"10 a 12","90 seg","Convencional"),
+ ex("Crucifixo Máquina",2,"12 a 15","75 seg","Convencional"),
  ex("Pull Face",3,"12 a 15","60 seg","Convencional"),
- ex("Rosca Martelo Corda + Tríceps Francês Corda",3,"10 a 12","60 seg","Bi-set")
-]};
-const P95_INF_B={muscle:"Projeto 95 — Inferior B · Posterior e Glúteos",list:[
- ex("Stiff",4,"6 a 8","120 seg","Convencional"),
- ex("Elevação Pélvica",4,"8 a 10","90 seg","Isometria"),
- ex("Mesa Flexora",3,"10 a 12","90 seg","Convencional"),
- ex("Passada Caminhando",3,"10 por lado","90 seg","Convencional"),
- ex("Panturrilha em Pé Máquina",4,"12 a 15","60 seg","Convencional"),
- ex("Abdominal na Polia",3,"12 a 15","60 seg","Convencional")
+ ex("Elevação Lateral na Polia",3,"12 a 15","60 seg","Convencional"),
+ ex("Rosca Martelo Corda",3,"10 a 12","60 seg","Convencional"),
+ ex("Tríceps Francês Corda",3,"10 a 12","60 seg","Convencional")
 ]};
 const WORKOUTS = {
-  1: { SEG:P95_SUP_A, TER:P95_INF_A, QUA:P95_SUP_B, SAB:P95_INF_B },
-  2: { SEG:P95_SUP_A, TER:P95_INF_A, QUA:P95_SUP_B, SAB:P95_INF_B },
-  3: { SEG:P95_SUP_A, TER:P95_INF_A, QUA:P95_SUP_B, SAB:P95_INF_B },
+  1: { SEG:P95_SUP_A, TER:P95_INF_A, QUA:P95_SUP_B, SAB:P95_SUP_A },
+  2: { SEG:P95_SUP_A, TER:P95_INF_A, QUA:P95_SUP_B, SAB:P95_SUP_A },
+  3: { SEG:P95_SUP_A, TER:P95_INF_A, QUA:P95_SUP_B, SAB:P95_SUP_A },
 };
 
 function blockOf(week) {
@@ -1375,28 +1373,31 @@ window.v2RenderWorkout=function(){mura31OldRender();const d=v2DayData(),e=d.list
 const mura31Render2=window.v2RenderWorkout;
 window.v2RenderWorkout=function(){mura31Render2();document.querySelectorAll('#v2WorkoutInner .v2-setgrid').forEach((row,si)=>{const x=state.entries[`${v2ExIndex}-${si}`]||{};if(x.mura31Suggested){row.style.opacity='.86';row.title='Sugestão automática do Trainer — ainda não confirmada';}});};
 // Atualiza identificação da versão na interface
-window.addEventListener('load',()=>{document.title='MuraIron V3.4 · Projeto 95';setTimeout(()=>{const k=document.querySelector('#v2TodayCard .v2-kicker');if(k)k.textContent='MURAIRON V3.4 · PROJETO 95';},300)});
+window.addEventListener('load',()=>{document.title='MuraIron V3.5 · Projeto 95';setTimeout(()=>{const k=document.querySelector('#v2TodayCard .v2-kicker');if(k)k.textContent='MURAIRON V3.5 · PROJETO 95';},300)});
 </script>
 
 
 <style>
 .p95-hero{background:linear-gradient(135deg,#1c1917,#29201b);border:1px solid #7c2d12;border-radius:18px;padding:18px;margin:12px 0}.p95-hero label{font-size:9px;color:#fb923c;letter-spacing:.15em;font-weight:900}.p95-hero h2{font-size:28px;margin:7px 0 4px}.p95-hero p{color:#a1a1aa;font-size:12px;line-height:1.45}.p95-phase{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.p95-phase div{background:#18181b;border:1px solid #3f3f46;border-radius:12px;padding:13px}.p95-phase .active{border-color:#f97316}.p95-phase b,.p95-phase small{display:block}.p95-phase small{color:#71717a;margin-top:4px}.p95-macros{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0}.p95-macros div{background:#18181b;border-radius:10px;text-align:center;padding:10px 4px}.p95-macros b,.p95-macros small{display:block}.p95-macros small{font-size:8px;color:#71717a}.p95-week{display:grid;gap:6px}.p95-day{display:grid;grid-template-columns:40px 1fr;gap:8px;background:#18181b;border:1px solid #27272a;border-radius:10px;padding:10px}.p95-day b{color:#fb923c}.p95-day small{color:#a1a1aa}.p95-note{font-size:11px;color:#a1a1aa;line-height:1.5;margin-top:12px}.p95-goal{height:8px;background:#27272a;border-radius:99px;overflow:hidden;margin-top:5px}.p95-goal i{display:block;height:100%;background:linear-gradient(90deg,#ea580c,#fb923c)}
 </style>
+<style>
+.p95-diets{display:grid;grid-template-columns:1fr 1fr;gap:8px}.p95-diet{background:#18181b;border:1px solid #3f3f46;border-radius:12px;padding:12px}.p95-diet.week{border-color:#f97316}.p95-diet b,.p95-diet small{display:block}.p95-diet small{color:#a1a1aa;margin-top:5px;line-height:1.4}
+</style>
 <script>
-/* ===== MURAIRON V3.4 · PROJETO 95 ===== */
+/* ===== MURAIRON V3.5 · PROJETO 95 ===== */
 function v34Body(){try{return JSON.parse(localStorage.getItem('mura_v3_body')||'{}')}catch(e){return{}}}
 function v34History(){try{return JSON.parse(localStorage.getItem('mura_v34_body_history')||'[]')}catch(e){return[]}}
 function v34Project95Modal(){
  const b=v34Body(),w=Number(String(b.weight||'98.8').replace(',','.'))||98.8;
  const pct=Math.max(0,Math.min(100,(98.8-w)/(98.8-94)*100));
- const week=[['SEG','Superior A · peito e costas'],['TER','Inferior A · quadríceps e core'],['QUA','Superior B · costas, ombros e braços'],['QUI','Corrida leve · 30–40 min · Zona 2'],['SEX','Recuperação e mobilidade'],['SÁB','Inferior B · posterior e glúteos'],['DOM','Corrida longa · 45–60 min · Zona 2']];
+ const week=[['SEG','Superior completo A'],['TER','Inferior completo · único treino de pernas'],['QUA','Superior completo B'],['QUI','Corrida leve · 30–40 min · Zona 2'],['SEX','Recuperação e mobilidade'],['SÁB','Repetição do Superior A'],['DOM','Corrida longa · 40–60 min · Zona 2']];
  openModal(`<div class="p95-hero"><label>MURAIRON · PROJETO 95</label><h2>Definição sem perder força.</h2><p>Fase 1: reduzir gordura preservando seus 71,8 kg de massa muscular. A meta de definição será decidida também pela cintura e pelas fotos, não apenas pelo peso.</p><div style="display:flex;justify-content:space-between"><b>${w.toFixed(1)} kg</b><b>Meta 93–95 kg</b></div><div class="p95-goal"><i style="width:${pct}%"></i></div></div>
  <div class="p95-phase"><div class="active"><b>FASE 1 · ATUAL</b><small>93–95 kg · preservar força</small></div><div><b>FASE 2</b><small>90–92 kg · 13–15% gordura*</small></div></div>
- <h4>Estratégia nutricional inicial</h4><div class="p95-macros"><div><b>2.450</b><small>KCAL</small></div><div><b>190 g</b><small>PROTEÍNA</small></div><div><b>260 g</b><small>CARBO</small></div><div><b>70 g</b><small>GORDURA</small></div></div>
+ <h4>Estratégia nutricional</h4><div class="p95-diets"><div class="p95-diet week"><b>SEG–SEX · CONTROLADA</b><small>2.300 kcal/dia<br>190 g proteína<br>Refeições planejadas</small></div><div class="p95-diet"><b>SÁB–DOM · FLEXÍVEL</b><small>Até 2.800 kcal/dia<br>190 g proteína<br>1 refeição livre/dia</small></div></div><div class="p95-macros"><div><b>190 g</b><small>PROTEÍNA TODOS OS DIAS</small></div><div><b>3,5 L</b><small>ÁGUA</small></div><div><b>25–35 g</b><small>FIBRAS</small></div><div><b>2.440</b><small>MÉDIA KCAL/SEM</small></div></div>
  <h4>Semana planejada</h4><div class="p95-week">${week.map(x=>`<div class="p95-day"><b>${x[0]}</b><small>${x[1]}</small></div>`).join('')}</div>
  <button class="v2-primary" style="margin-top:14px" onclick="closeModal();setTimeout(v34BodyModal,100)">📏 REGISTRAR PESO, CINTURA E FOTO</button>
  <button class="v3-secondary" onclick="v34Checkin()">✓ CHECK-IN SEMANAL</button>
- <p class="p95-note">*Faixa estimada. Revise a cada 14 dias. Se a média cair mais de 0,8 kg/semana, acrescente 150 kcal; sem queda por duas semanas, retire 150 kcal. Não reduza a proteína.</p>`);
+ <p class="p95-note">Fim de semana flexível não significa livre o dia inteiro: mantenha proteína, vegetais e água, escolhendo somente uma refeição livre por dia. Revise a cada 14 dias. Se a média cair mais de 0,8 kg/semana, acrescente 150 kcal; sem queda por duas semanas, retire 150 kcal.</p>`);
 }
 function v34Checkin(){
  const b=v34Body();if(!b.weight){alert('Registre primeiro seu peso e suas medidas.');closeModal();setTimeout(v34BodyModal,100);return}
