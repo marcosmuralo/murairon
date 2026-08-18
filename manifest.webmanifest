@@ -1,7 +1,7 @@
 {
-  "name": "MuraIron V3.6 · Nutrição IA",
+  "name": "MuraIron V4.0 · Full Body Personalizável",
   "short_name": "MuraIron 95",
-  "description": "Treinos, cardápio diário, análise de pratos por IA e evolução corporal.",
+  "description": "Full body personalizável, progressão de cargas e nutrição manual ou por foto com Gemini.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
